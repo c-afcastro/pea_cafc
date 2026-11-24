@@ -71,6 +71,10 @@ button{cursor:pointer;background:none;border:0;padding:0}
 .cbtn b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cbtn .ic{width:14px;height:14px;stroke-width:2.4;color:var(--ink-3)}
 .flag{font-size:18px;line-height:1}
+.top-r{flex:none;display:flex;align-items:center;gap:8px;min-width:0}
+.top-r .cbtn{max-width:44vw}
+.gbtn{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);color:var(--ink)}
+.gbtn .ic{width:20px;height:20px;stroke-width:1.9}
 
 /* Cartão escuro: tocando agora */
 .hero{display:grid;gap:14px;width:100%;margin-top:2px;padding:16px;border-radius:20px;background:var(--hero);color:var(--hero-ink);text-align:left}
@@ -230,6 +234,26 @@ button{cursor:pointer;background:none;border:0;padding:0}
   .pl-ctl .ibtn{width:64px;height:64px}.pl-ctl .big{width:80px;height:80px}
 }
 
+.lyr{width:100%;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:left;white-space:pre-line;
+  font-family:var(--display);font-size:clamp(20px,5.6vw,24px);font-weight:700;letter-spacing:-.02em;line-height:1.4;padding:16px 2px 28px;
+  -webkit-mask-image:linear-gradient(transparent,#000 18px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(transparent,#000 18px,#000 calc(100% - 36px),transparent)}
+.lyr small{display:block;margin-top:22px;font-family:var(--font);font-size:12px;font-weight:500;color:var(--ink-3);letter-spacing:0}
+.lyr .lyr-x{margin:24px 0 0;font-size:17px;font-weight:500;color:var(--muted);text-align:center}
+.pl-body.lyr-on{justify-content:flex-start;gap:6px}
+.pl-body.lyr-on .pl-art{display:none}
+.pl-body.lyr-on .pl-txt{text-align:left}
+.pl-body.lyr-on .pl-t{font-size:22px}
+.pl-aux button:disabled{opacity:.35}
+.pl-aux .on{color:var(--accent)}
+.setc{display:grid;gap:12px;padding:14px 16px;margin-bottom:6px}
+.setc p{margin:0;font-size:13.5px;line-height:1.45;color:var(--muted)}
+.setc input{width:100%;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:10px 12px;font-size:16px;outline:none;-webkit-appearance:none;appearance:none}
+.setc input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;border-radius:13px;background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:600}
+.btn.ghost{background:var(--fill);color:var(--ink)}
+.btn:disabled{opacity:.5}
+.mstat{font-size:13.5px;font-weight:500;margin:0}
+.mstat.ok{color:var(--live)}.mstat.bad{color:var(--neg)}
 .toast{position:fixed;left:50%;bottom:calc(128px + env(safe-area-inset-bottom,0px));z-index:40;transform:translate(-50%,10px);opacity:0;
   max-width:calc(100vw - 32px);padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:500;
   transition:.25s var(--ease);pointer-events:none;text-align:center}
@@ -288,6 +312,8 @@ button{cursor:pointer;background:none;border:0;padding:0}
   <symbol id="i-x" viewBox="0 0 24 24"><circle fill="currentColor" stroke="none" cx="12" cy="12" r="9" opacity=".35"/><path d="m9 9 6 6m0-6-6 6" stroke="var(--paper)" stroke-width="2"/></symbol>
   <symbol id="i-airplay" viewBox="0 0 24 24"><path d="M6 17H4.5A1.5 1.5 0 0 1 3 15.5v-9A1.5 1.5 0 0 1 4.5 5h15A1.5 1.5 0 0 1 21 6.5v9a1.5 1.5 0 0 1-1.5 1.5H18"/><path fill="currentColor" stroke="none" d="M12 14.5 17 20H7z"/></symbol>
   <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-lyrics" viewBox="0 0 24 24"><path d="M4 6.5h11M4 11h11M4 15.5h6"/><path d="M17.5 19v-8.5l3-1" /><circle cx="15.8" cy="19" r="1.9"/></symbol>
 </svg>
 
 <main class="frame">
@@ -296,7 +322,8 @@ button{cursor:pointer;background:none;border:0;padding:0}
       <span class="eyebrow"><img id="eyeIcon" alt="">Rádio Mundo</span>
       <h1 class="gname" id="title">Estações</h1>
     </div>
-    <button class="cbtn" id="countryBtn" aria-label="Escolher país"><span class="flag" id="cFlag"></span><b id="cName"></b><svg class="ic"><use href="#i-down"/></svg></button>
+    <div class="top-r"><button class="cbtn" id="countryBtn" aria-label="Escolher país"><span class="flag" id="cFlag"></span><b id="cName"></b><svg class="ic"><use href="#i-down"/></svg></button>
+      <button class="gbtn" id="setBtn" aria-label="Ajustes"><svg class="ic"><use href="#i-sliders"/></svg></button></div>
   </header>
 
   <!-- Estações -->
@@ -349,7 +376,7 @@ button{cursor:pointer;background:none;border:0;padding:0}
     <span class="eyebrow" id="plCountry"></span>
     <span style="width:40px"></span>
   </div>
-  <div class="pl-body">
+  <div class="pl-body" id="plBody">
     <div class="art pl-art" id="plArt"></div>
     <div class="pl-txt">
       <span class="pl-k" id="plK"></span>
@@ -357,6 +384,7 @@ button{cursor:pointer;background:none;border:0;padding:0}
       <div class="pl-a" id="plA"></div>
       <div class="pl-st" id="plSt"></div>
     </div>
+    <div class="lyr" id="plLyr" hidden></div>
   </div>
   <div class="pl-ctl">
     <button class="ibtn" id="pPrev" aria-label="Anterior"><svg class="ic"><use href="#i-prev"/></svg></button>
@@ -364,6 +392,7 @@ button{cursor:pointer;background:none;border:0;padding:0}
     <button class="ibtn" id="pNext" aria-label="Próxima"><svg class="ic"><use href="#i-next"/></svg></button>
   </div>
   <div class="pl-aux">
+    <button id="pLyr" disabled><svg class="ic"><use href="#i-lyrics"/></svg>Letra</button>
     <button id="pFav"><svg class="ic"><use href="#i-star"/></svg>Favorita</button>
     <button id="pAir" hidden><svg class="ic"><use href="#i-airplay"/></svg>AirPlay</button>
   </div>
@@ -375,6 +404,21 @@ button{cursor:pointer;background:none;border:0;padding:0}
   <div class="search" style="flex:none;margin-bottom:6px"><svg class="ic"><use href="#i-search"/></svg>
     <input id="cq" type="search" placeholder="Filtrar países" autocomplete="off"></div>
   <div class="scroll" id="cList"></div>
+</section>
+
+<!-- Ajustes -->
+<section class="sheet" id="ssheet" aria-label="Ajustes" style="height:86dvh">
+  <div class="sheet-h"><h2>Ajustes</h2><button class="link" id="sClose">OK</button></div>
+  <div class="scroll">
+    <div class="cap">Nome da música e letra</div>
+    <div class="card setc">
+      <p>Se o app estiver publicado na Vercel com o arquivo <b>api/metadados.js</b>, o servidor é encontrado sozinho. Em outro lugar, cole aqui o endereço do servidor.</p>
+      <input id="metaIn" type="url" inputmode="url" placeholder="https://radio-mundo.vercel.app/api/metadados" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button class="btn" id="metaSave">Salvar e testar</button>
+      <p class="mstat" id="metaStat"></p>
+    </div>
+    <p class="hint" style="margin:8px 4px">Sem o servidor, o app tenta ler direto da rádio, mas a maioria bloqueia o iPhone.</p>
+  </div>
 </section>
 
 <div class="toast" id="toast" role="status"></div>
@@ -393,6 +437,12 @@ const store = {
   get(k, d){ try { const v = localStorage.getItem('radio.'+k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem('radio.'+k, JSON.stringify(v)); } catch(e){} }
 };
+
+/* ---------- Servidor de metadados ----------
+   Endereço do Cloudflare Worker (metadados.js). Pode ficar fixo aqui ou ser colado em Ajustes. */
+const META_DEFAULT = '';
+let autoMeta = '';   // preenchido sozinho quando o site tem /api/metadados (Vercel)
+const metaURL = () => (store.get('meta', '') || META_DEFAULT || autoMeta).trim().replace(/\/+$/, '');
 
 /* ---------- Países ---------- */
 let RN; try { RN = new Intl.DisplayNames(['pt-BR'], {type:'region'}); } catch(e){}
@@ -455,7 +505,8 @@ const S = {
   tab:'all', country: store.get('country','DE'), genre:'', stations:[], loading:true, error:false,
   q:'', scope:'country', results:[], sLoading:false, sError:false,
   favs: store.get('favs', []), cur: store.get('last', null), queue:[], status:'idle',
-  np:null   // {artist, title, raw, cover}
+  np:null,  // {artist, title, raw, cover, lyrics}
+  lyrOn:false
 };
 let rAll = 0, rSearch = 0, heroIn = false;
 
@@ -589,6 +640,26 @@ function renderPlayer(){
   $('plCountry').textContent = flag(s.cc) + ' ' + cName(s.cc);
   $('pPlay').innerHTML = pi;
   $('pFav').classList.toggle('fav', isFav(s.id));
+  renderLyrics();
+}
+let lyrKey = null;
+function renderLyrics(){
+  const np = S.np, ly = np && np.lyrics;
+  $('pLyr').disabled = !ly && !S.lyrOn;
+  $('pLyr').classList.toggle('on', S.lyrOn);
+  $('plBody').classList.toggle('lyr-on', S.lyrOn);
+  $('plLyr').hidden = !S.lyrOn;
+  if (!S.lyrOn) return;
+  const key = (np ? np.raw : '-') + '|' + (np ? String(np.lyrics === undefined ? 'u' : !!ly) : '');
+  if (key === lyrKey) return;
+  lyrKey = key;
+  const msg = t => `<p class="lyr-x">${t}</p>`;
+  $('plLyr').innerHTML = !np ? msg('A rádio ainda não informou a música.')
+    : np.lyrics === undefined ? msg('Procurando a letra…')
+    : !ly ? msg('Letra indisponível para esta música.')
+    : (ly.instrumental && !ly.plain) ? msg('Música instrumental')
+    : esc(ly.plain) + '<small>Letra: LRCLIB</small>';
+  $('plLyr').scrollTop = 0;
 }
 function render(){
   if (S.tab === 'all') renderAll(); else if (S.tab === 'search') renderSearch(); else renderFav();
@@ -737,19 +808,54 @@ const NP = (() => {
       return coverCache[key] = a ? a.replace('100x100bb', '600x600bb') : null;
     } catch(e){ return coverCache[key] = null; }
   }
+  async function viaWorker(s){
+    const t = timed(12000); ctrl = t.ctrl;
+    try {
+      const r = await fetch(metaURL() + '?url=' + encodeURIComponent(s.url), {signal:t.signal}); t.done();
+      if (!r.ok) return null;
+      const j = await r.json();
+      return j.titulo ?? null;
+    } catch(e){ t.done(); return null; }
+  }
+  const lyrCache = {};
+  const cleanTitle = t => t.replace(/\s*[\(\[][^\)\]]*[\)\]]/g, '').replace(/\s+(feat|ft)\.?\s.*$/i, '').trim();
+  const mainArtist = a => a.split(/\s*(?:,|&|\bfeat\.?|\bft\.?|\bx\b|\/)\s*/i)[0].trim();
+  async function lyrics(np){
+    if (!np.artist || !np.title) return null;
+    const key = np.raw.toLowerCase();
+    if (key in lyrCache) return lyrCache[key];
+    const a = mainArtist(np.artist), m = cleanTitle(np.title);
+    const t = timed(9000);
+    try {
+      const url = metaURL()
+        ? metaURL() + '?artista=' + encodeURIComponent(a) + '&musica=' + encodeURIComponent(m)
+        : 'https://lrclib.net/api/search?artist_name=' + encodeURIComponent(a) + '&track_name=' + encodeURIComponent(m);
+      const r = await fetch(url, {signal:t.signal}); t.done();
+      if (!r.ok) return lyrCache[key] = null;
+      let j = await r.json();
+      if (Array.isArray(j)){ const x = j.find(i => i && (i.plainLyrics || i.instrumental)); j = x ? {plain:x.plainLyrics || '', instrumental:!!x.instrumental} : null; }
+      return lyrCache[key] = j && (j.plain || j.instrumental) ? {plain:j.plain || '', instrumental:!!j.instrumental} : null;
+    } catch(e){ t.done(); return lyrCache[key] = null; }
+  }
+  const refresh = () => { setMeta(); renderPlayer(); if (S.tab === 'all') renderHero(); };
   async function poll(){
     const s = S.cur; if (!s || s.id !== sid || !playing()) return;
-    let raw = await viaStatus(s);
-    if (raw == null && s.id === sid) raw = await viaIcy(s);
+    const viaServ = !!metaURL();
+    let raw;
+    if (viaServ) raw = await viaWorker(s);
+    else { raw = await viaStatus(s); if (raw == null && s.id === sid) raw = await viaIcy(s); }
     if (!S.cur || S.cur.id !== sid) return;
-    if (raw == null){ if (++misses >= 2) stop(); return; }   // rádio não libera os dados: desiste em silêncio
+    if (raw == null){ if (++misses >= (viaServ ? 12 : 2)) stop(); return; }   // rádio não informa a música: desiste em silêncio
     misses = 0;
     const np = parse(raw, s);
     if ((np?.raw || null) === (S.np?.raw || null)) return;
-    S.np = np; setMeta(); renderPlayer(); if (S.tab === 'all') renderHero();
-    if (np){ const c = await cover(np); if (S.np === np && c){ np.cover = c; setMeta(); renderPlayer(); if (S.tab === 'all') renderHero(); } }
+    if (np) np.lyrics = np.artist ? undefined : null;
+    S.np = np; refresh();
+    if (!np) return;
+    cover(np).then(c => { if (S.np === np && c){ np.cover = c; refresh(); } });
+    if (np.artist) lyrics(np).then(l => { if (S.np === np){ np.lyrics = l; renderPlayer(); } });
   }
-  function start(s){ stop(); sid = s.id; misses = 0; setTimeout(poll, 1500); timer = setInterval(poll, 20000); }
+  function start(s){ stop(); sid = s.id; misses = 0; setTimeout(poll, 1200); timer = setInterval(poll, metaURL() ? 15000 : 20000); }
   function stop(){ clearInterval(timer); timer = null; try { ctrl?.abort(); } catch(e){} }
   return {start, stop};
 })();
@@ -846,6 +952,32 @@ $('pPrev').addEventListener('click', () => step(-1));
 $('mArt').addEventListener('click', () => openSheet($('player'))); $('mTxt').addEventListener('click', () => openSheet($('player')));
 $('plClose').addEventListener('click', closeSheet);
 $('pFav').addEventListener('click', () => S.cur && toggleFav(S.cur));
+$('pLyr').addEventListener('click', () => { S.lyrOn = !S.lyrOn; lyrKey = null; renderPlayer(); });
+$('setBtn').addEventListener('click', () => {
+  $('metaIn').value = store.get('meta', '') || META_DEFAULT;
+  const st = $('metaStat');
+  if (!$('metaIn').value && autoMeta){ st.className = 'mstat ok'; st.textContent = 'Servidor do próprio site ativo. Nada a configurar.'; }
+  else { st.className = 'mstat'; st.textContent = ''; }
+  openSheet($('ssheet'));
+});
+$('sClose').addEventListener('click', closeSheet);
+$('metaSave').addEventListener('click', async () => {
+  const st = $('metaStat'), b = $('metaSave');
+  let v = $('metaIn').value.trim().replace(/\/+$/, '');
+  if (v && !/^https?:\/\//i.test(v)) v = 'https://' + v;
+  $('metaIn').value = v;
+  if (!v){ store.set('meta', ''); st.className = 'mstat'; st.textContent = autoMeta ? 'Usando o servidor do próprio site.' : 'Servidor removido. O app volta a tentar direto nas rádios.'; if (S.cur && playing()) NP.start(S.cur); return; }
+  b.disabled = true; st.className = 'mstat'; st.textContent = 'Testando…';
+  const t = timed(8000);
+  try {
+    const r = await fetch(v, {signal:t.signal}); t.done();
+    const j = await r.json();
+    if (!j || !j.servico) throw 0;
+    store.set('meta', v); st.className = 'mstat ok'; st.textContent = 'Conectado. A música aparece em alguns segundos.';
+    if (S.cur && playing()) NP.start(S.cur);
+  } catch(e){ t.done(); st.className = 'mstat bad'; st.textContent = 'Não consegui falar com o servidor. Confira o endereço.'; }
+  b.disabled = false;
+});
 // arrastar para baixo fecha a folha
 document.querySelectorAll('.sheet').forEach(sh => {
   let y0 = null;
@@ -858,10 +990,22 @@ document.querySelectorAll('.sheet').forEach(sh => {
 if ('IntersectionObserver' in window)
   new IntersectionObserver(([en]) => { heroIn = en.isIntersecting; renderPlayer(); }, {threshold:.3}).observe($('hero'));
 
+/* ---------- Servidor no mesmo site (Vercel): detecta sozinho ---------- */
+async function detectMeta(){
+  if (!/^https?:$/.test(location.protocol)) return;
+  const t = timed(6000);
+  try {
+    const r = await fetch(location.origin + '/api/metadados', {signal:t.signal}); t.done();
+    const j = r.ok ? await r.json() : null;
+    if (j && j.servico){ autoMeta = location.origin + '/api/metadados'; if (!store.get('meta', '') && !META_DEFAULT && S.cur && playing()) NP.start(S.cur); }
+  } catch(e){ t.done(); }
+}
+
 /* ---------- Início ---------- */
 if (S.cur) setMeta();
 render();
 loadAll();
+detectMeta();
 window.__splashDone && window.__splashDone();
 })();
 </script>
